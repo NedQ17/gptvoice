@@ -5,7 +5,7 @@ import requests
 import json
 
 # API-ключ ChatGPT
-api_key = "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"
+api_key = "your_api"
 
 
 # Функция отправки запроса к API ChatGPT
