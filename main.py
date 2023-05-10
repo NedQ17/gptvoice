@@ -21,7 +21,7 @@ def send_request(prompt):
         }
     }
     headers = {
-        "Authorization": f"Bearer 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",
+        "Authorization": f"Bearer {api_key}",
         "Content-Type": "application/json"
     }
     response = requests.post("https://api.openai.com/v1/engines/davinci-codex/completions", headers=headers, json=data)
