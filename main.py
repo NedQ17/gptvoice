@@ -5,26 +5,25 @@ import requests
 import json
 
 # API-ключ ChatGPT
-api_key = "your_api"
+api_key = "api"
 
 
 # Функция отправки запроса к API ChatGPT
 def send_request(prompt):
     data = {
-        "inputs": prompt,
-        "parameters": {
-            "model": "text-generation"
-        },
-        "options": {
-            "use_cache": False,
-            "wait_for_model": True
-        }
+        #"prompt": "привет",
+        "temperature": 0.7,
+        "max_tokens": 16,
+        "model": "text-davinci-002"
     }
     headers = {
         "Authorization": f"Bearer {api_key}",
         "Content-Type": "application/json"
     }
-    response = requests.post("https://api.openai.com/v1/engines/davinci-codex/completions", headers=headers, json=data)
+    response = requests.post("https://api.openai.com/v1/completions", headers=headers, json=data)
+    response_data = json.loads(response.text)
+    print(json.dumps(response_data, indent=4))
+
     response.raise_for_status()
     return response.json()["choices"][0]["text"]
 
@@ -35,7 +34,11 @@ def generate_and_play_voice(text):
     tts.save("output.mp3")
 
     # Воспроизведение синтезированной речи
-    os.system("mpg321 output.mp3")
+    #os.system("mpg321 output.mp3")
+    # Воспроизведение синтезированной речи
+    from playsound import playsound
+    playsound("output.mp3")
+
 
 # Создание объекта Recognizer из библиотеки speech_recognition
 r = sr.Recognizer()
